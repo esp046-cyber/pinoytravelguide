@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinoy Traveller's Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 1%;
+        }
+        
+        .container {
+            max-width: 100%;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        header {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 15px 1%;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 1.3em;
+            margin-bottom: 5px;
+        }
+        
+        .subtitle {
+            font-size: 0.85em;
+            opacity: 0.95;
+        }
+        
+        .tabs {
+            display: flex;
+            background: #f8f9fa;
+            overflow-x: auto;
+            border-bottom: 2px solid #dee2e6;
+        }
+        
+        .tab {
+            padding: 12px 15px;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-size: 0.9em;
+            white-space: nowrap;
+            transition: all 0.3s;
+            color: #495057;
+            font-weight: 500;
+        }
+        
+        .tab.active {
+            background: white;
+            color: #f5576c;
+            border-bottom: 3px solid #f5576c;
+        }
+        
+        .content {
+            padding: 1%;
+            display: none;
+        }
+        
+        .content.active {
+            display: block;
+            animation: fadeIn 0.4s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .card {
+            background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-left: 4px solid #667eea;
+            transition: transform 0.2s;
+        }
+        
+        .card:active {
+            transform: scale(0.98);
+        }
+        
+        .card h3 {
+            font-size: 1em;
+            color: #2d3748;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .icon {
+            margin-right: 8px;
+            font-size: 1.2em;
+        }
+        
+        .card p, .card li {
+            font-size: 0.9em;
+            color: #4a5568;
+            line-height: 1.5;
+        }
+        
+        .card ul {
+            margin-left: 20px;
+            margin-top: 8px;
+        }
+        
+        .card li {
+            margin-bottom: 5px;
+        }
+        
+        .tip-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        
+        .tip-box strong {
+            color: #856404;
+            font-size: 0.9em;
+        }
+        
+        .tip-box p {
+            font-size: 0.85em;
+            color: #856404;
+            margin-top: 5px;
+        }
+        
+        .budget-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            background: white;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .budget-item span:first-child {
+            font-weight: 500;
+            color: #2d3748;
+            font-size: 0.9em;
+        }
+        
+        .budget-item span:last-child {
+            color: #667eea;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+        
+        .destination {
+            background: white;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .destination h3 {
+            color: #f5576c;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+        
+        .destination .location {
+            color: #667eea;
+            font-size: 0.85em;
+            margin-bottom: 8px;
+        }
+        
+        footer {
+            background: #2d3748;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 0.8em;
+        }
+        
+        .checklist {
+            background: white;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .checklist label {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        
+        .checklist input[type="checkbox"] {
+            margin-right: 10px;
+            width: 18px;
+            height: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🇵🇭 Pinoy Traveller's Guide</h1>
+            <p class="subtitle">Your Ultimate Filipino Travel Companion</p>
+        </header>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('basics')">Basics</button>
+            <button class="tab" onclick="showTab('destinations')">Destinations</button>
+            <button class="tab" onclick="showTab('budget')">Budget</button>
+            <button class="tab" onclick="showTab('tips')">Tips</button>
+            <button class="tab" onclick="showTab('safety')">Safety</button>
+            <button class="tab" onclick="showTab('booking')">Booking</button>
+            <button class="tab" onclick="showTab('food')">Food</button>
+            <button class="tab" onclick="showTab('itinerary')">Itinerary</button>
+            <button class="tab" onclick="showTab('checklist')">Checklist</button>
+        </div>
+        
+        <div id="basics" class="content active">
+            <div class="card">
+                <h3><span class="icon">📋</span>Documents Needed</h3>
+                <ul>
+                    <li>Valid ID (Philippine Passport, Driver's License, or National ID)</li>
+                    <li>Travel Authority (for minors traveling without parents)</li>
+                    <li>Hotel booking confirmation</li>
+                    <li>Travel insurance (recommended)</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🚗</span>Getting Around</h3>
+                <ul>
+                    <li><strong>Jeepney:</strong> ₱9-15 per ride, iconic Filipino transport</li>
+                    <li><strong>Tricycle:</strong> ₱10-50 depending on distance</li>
+                    <li><strong>Bus:</strong> Provincial buses, P2P for Metro Manila</li>
+                    <li><strong>Grab/Taxi:</strong> Book via app for safety</li>
+                    <li><strong>Habal-habal:</strong> Motorcycle taxi in provinces</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">📱</span>Essential Apps</h3>
+                <ul>
+                    <li><strong>Grab:</strong> Transportation</li>
+                    <li><strong>Google Maps:</strong> Navigation</li>
+                    <li><strong>Booking.com/Agoda:</strong> Accommodations</li>
+                    <li><strong>GCash:</strong> Mobile payments</li>
+                    <li><strong>Weather Philippines:</strong> Forecast</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🏥</span>Emergency Contacts</h3>
+                <ul>
+                    <li><strong>911:</strong> National Emergency Hotline</li>
+                    <li><strong>117:</strong> PNP Hotline</li>
+                    <li><strong>143:</strong> Philippine Red Cross</li>
+                    <li><strong>8888:</strong> Citizen's Complaint Hotline</li>
+                    <li><strong>DOT Tourist Hotline:</strong> (02) 8524-1728</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">💳</span>Money Matters</h3>
+                <ul>
+                    <li>Use GCash or Maya for cashless payments</li>
+                    <li>ATMs widely available in cities (₱200-250 fee)</li>
+                    <li>Exchange money at malls for better rates</li>
+                    <li>Inform your bank before traveling</li>
+                    <li>Keep emergency cash hidden separately</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">📶</span>Internet & Connectivity</h3>
+                <ul>
+                    <li><strong>SIM Cards:</strong> Globe, Smart, DITO (₱50-100)</li>
+                    <li><strong>Data promos:</strong> 1GB = ₱50, Unlimited = ₱99-299</li>
+                    <li><strong>Load:</strong> Buy at 7-Eleven, sari-sari stores</li>
+                    <li><strong>WiFi:</strong> Available in malls, cafes, hotels</li>
+                    <li><strong>Coverage:</strong> Cities good, provinces spotty</li>
+                    <li>Register SIM with valid ID (required by law)</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🔌</span>Power & Charging</h3>
+                <ul>
+                    <li><strong>Voltage:</strong> 220V, 60Hz (same as most countries)</li>
+                    <li><strong>Plug type:</strong> Type A, B, C (US-style flat pins)</li>
+                    <li>Bring power bank (20,000mAh recommended)</li>
+                    <li>Universal adapter helpful for multiple devices</li>
+                    <li>Charging stations in malls and airports</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🏪</span>Shopping Tips</h3>
+                <ul>
+                    <li><strong>Malls:</strong> SM, Ayala, Robinsons - air-conditioned shopping</li>
+                    <li><strong>Markets:</strong> Divisoria, Greenhills - bargain hunting</li>
+                    <li><strong>Pasalubong:</strong> Dried mangoes, polvoron, barong</li>
+                    <li><strong>Handicrafts:</strong> Support local artisans</li>
+                    <li><strong>Haggling:</strong> Expected in markets, not malls</li>
+                    <li>Bring eco-bag (plastic ban in many cities)</li>
+                </ul>
+            </div>
+            
+            <div class="tip-box">
+                <strong>💡 Beginner Tip:</strong>
+                <p>Always carry small bills (₱20, ₱50, ₱100). Many vendors and drivers don't have change for big bills!</p>
+            </div>
+        </div>
+        
+        <div id="destinations" class="content">
+            <div class="destination">
+                <h3>🏖️ Boracay</h3>
+                <p class="location">📍 Aklan, Visayas</p>
+                <p>Famous white sand beaches, water sports, and vibrant nightlife. Best for first-time beach lovers.</p>
+                <p style="margin-top:8px; font-size:0.85em;"><strong>Best time:</strong> November to May</p>
+            </div>
+            
+            <div class="destination">
+                <h3>🌾 Banaue Rice Terraces</h3>
+                <p class="location">📍 Ifugao, Luzon</p>
+                <p>2,000-year-old terraces, cool climate, cultural heritage. Perfect for mountain enthusiasts.</p>
+                <p style="margin-top:8px; font-size:0.85em;"><strong>Best time:</strong> March to May</p>
+            </div>
+            
+            <div class="destination">
+                <h3>🏝️ Palawan (El Nido/Coron)</h3>
+                <p class="location">📍 Palawan, Mimaropa</p>
+                <p>Crystal clear waters, limestone cliffs, island hopping. Paradise for nature lovers.</p>
+                <p style="margin-top:8px; font-size:0.85em;"><strong>Best time:</strong> November to May</p>
+            </div>
+            
+            <div class="destination">
+                <h3>🌊 Siargao</h3>
+                <p class="location">📍 Surigao del Norte, Mindanao</p>
+                <p>Surfing capital, island vibes, laid-back atmosphere. Great for adventure seekers.</p>
+                <p style="margin-top:8px; font-size:0.85em;"><strong>Best time:</strong> March to October</p>
+            </div>
+            
+            <div class="destination">
+                <h3>🌋 Mayon Volcano</h3>
+                <p class="location">📍 Albay, Bicol</p>
+                <p>Perfect cone volcano, ATV rides, Cagsawa Ruins. Ideal for volcano enthusiasts.</p>
+                <p style="margin-top:8px; font-size:0.85em;"><strong>Best time:</strong> October to May</p>
+            </div>
+            
+            <div class="destination">
+                <h3>🏔️ Sagada</h3>
+                <p class="location">📍 Mountain Province, Luzon</p>
+                <p>Hanging coffins, caves, sunrise at Kiltepan. Perfect for cultural and adventure tourism.</p>
+                <p style="margin-top:8px; font-size:0.85em;"><strong>Best time:</strong> December to May</p>
+            </div>
+            
+            <div class="destination">
+                <h3>🐋 Oslob (Whale Sharks)</h3>
+                <p class="location">📍 Cebu, Visayas</p>
+                <p>Swim with whale sharks, Tumalog Falls, Sumilon Island. Unique marine experience.</p>
+                <p style="margin-top:8px; font-size:0.85em;"><strong>Best time:</strong> December to May</p>
+            </div>
+            
+            <div class="destination">
+                <h3>🏝️ Camiguin</h3>
+                <p class="location">📍 Northern Mindanao</p>
+                <p>Island born of fire, white island, hot springs, waterfalls. Hidden gem destination.</p>
+                <p style="margin-top:8px; font-size:0.85em;"><strong>Best time:</strong> March to May</p>
+            </div>
+            
+            <div class="destination">
+                <h3>🌊 Bohol (Chocolate Hills)</h3>
+                <p class="location">📍 Bohol, Visayas</p>
+                <p>Chocolate Hills, tarsiers, river cruise, beaches. Family-friendly destination.</p>
+                <p style="margin-top:8px; font-size:0.85em;"><strong>Best time:</strong> November to May</p>
+            </div>
+            
+            <div class="tip-box">
+                <strong>💡 Pro Tip:</strong>
+                <p>Book island hopping tours directly from locals at the pier to save money!</p>
+            </div>
+        </div>
+        
+        <div id="budget" class="content">
+            <div class="card">
+                <h3><span class="icon">💰</span>Daily Budget (Per Person)</h3>
+            </div>
+            
+            <div class="budget-item">
+                <span>Budget Hostel/Dorm</span>
+                <span>₱300-600</span>
+            </div>
+            <div class="budget-item">
+                <span>Mid-range Hotel</span>
+                <span>₱1,500-3,000</span>
+            </div>
+            <div class="budget-item">
+                <span>Breakfast (Carinderia)</span>
+                <span>₱50-100</span>
+            </div>
+            <div class="budget-item">
+                <span>Lunch (Local Restaurant)</span>
+                <span>₱80-150</span>
+            </div>
+            <div class="budget-item">
+                <span>Dinner</span>
+                <span>₱100-200</span>
+            </div>
+            <div class="budget-item">
+                <span>Local Transportation</span>
+                <span>₱100-300</span>
+            </div>
+            <div class="budget-item">
+                <span>Activities/Tours</span>
+                <span>₱500-2,000</span>
+            </div>
+            
+            <div class="card" style="margin-top:15px;">
+                <h3><span class="icon">📊</span>Sample 3-Day Budget</h3>
+                <ul>
+                    <li><strong>Shoestring:</strong> ₱3,000-4,500 total</li>
+                    <li><strong>Budget Traveler:</strong> ₱6,000-9,000 total</li>
+                    <li><strong>Mid-range:</strong> ₱12,000-18,000 total</li>
+                    <li><strong>Comfort:</strong> ₱20,000+ total</li>
+                </ul>
+            </div>
+            
+            <div class="tip-box">
+                <strong>💡 Money Saving Tip:</strong>
+                <p>Eat at carinderias and local eateries. You'll get authentic Filipino food for half the price of tourist restaurants!</p>
+            </div>
+        </div>
+        
+        <div id="tips" class="content">
+            <div class="card">
+                <h3><span class="icon">☀️</span>Weather & When to Go</h3>
+                <p><strong>Dry Season (Nov-May):</strong> Best for beach destinations, island hopping</p>
+                <p style="margin-top:8px;"><strong>Wet Season (Jun-Oct):</strong> Fewer tourists, lower prices, but expect rain</p>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🍽️</span>Must-Try Filipino Food</h3>
+                <ul>
+                    <li><strong>Adobo:</strong> Savory meat dish (chicken/pork)</li>
+                    <li><strong>Sinigang:</strong> Sour soup, very Filipino</li>
+                    <li><strong>Lechon:</strong> Roasted pig, festive food</li>
+                    <li><strong>Halo-halo:</strong> Mixed dessert with ice</li>
+                    <li><strong>Sisig:</strong> Sizzling pork dish</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">⚠️</span>Safety Tips</h3>
+                <ul>
+                    <li>Don't flash expensive gadgets in crowded areas</li>
+                    <li>Use hotel safes for passports and valuables</li>
+                    <li>Drink only bottled water</li>
+                    <li>Be cautious of overly friendly strangers</li>
+                    <li>Book accommodations in safe, well-reviewed areas</li>
+                    <li>Always haggle politely with tricycle drivers</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🗣️</span>Basic Tagalog Phrases</h3>
+                <ul>
+                    <li><strong>Magkano?</strong> - How much?</li>
+                    <li><strong>Saan ang...?</strong> - Where is...?</li>
+                    <li><strong>Salamat</strong> - Thank you</li>
+                    <li><strong>Oo/Hindi</strong> - Yes/No</li>
+                    <li><strong>Sarap!</strong> - Delicious!</li>
+                    <li><strong>Tawad naman</strong> - Give discount please</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">📸</span>Photography Tips</h3>
+                <ul>
+                    <li>Golden hour: 5:30-6:30 AM and 5-6 PM</li>
+                    <li>Respect "No Photo" signs at sacred sites</li>
+                    <li>Ask permission before taking photos of people</li>
+                    <li>Bring waterproof case for water activities</li>
+                    <li>Charge devices night before tours</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🌊</span>Beach & Island Tips</h3>
+                <ul>
+                    <li>Apply sunscreen 30 minutes before sun exposure</li>
+                    <li>Wear reef-safe sunscreen to protect marine life</li>
+                    <li>Bring dry bag for valuables</li>
+                    <li>Don't touch or step on corals</li>
+                    <li>Dispose trash properly, keep beaches clean</li>
+                    <li>Check weather before island hopping</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🚌</span>Long Bus Travel Tips</h3>
+                <ul>
+                    <li>Bring jacket/hoodie (buses are very cold)</li>
+                    <li>Book window seat for better views</li>
+                    <li>Download movies/shows beforehand</li>
+                    <li>Bring snacks and water</li>
+                    <li>Use neck pillow for comfort</li>
+                    <li>Keep valuables in front bag</li>
+                </ul>
+            </div>
+            
+            <div class="tip-box">
+                <strong>💡 Cultural Tip:</strong>
+                <p>Filipinos are very hospitable! Don't be surprised if locals offer help or strike up conversations. It's part of our culture!</p>
+            </div>
+        </div>
+        
+        <div id="safety" class="content">
+            <div class="card">
+                <h3><span class="icon">🛡️</span>Personal Safety</h3>
+                <ul>
+                    <li>Always tell someone your itinerary</li>
+                    <li>Share live location with family/friends</li>
+                    <li>Avoid dark, isolated areas at night</li>
+                    <li>Don't accept food/drinks from strangers</li>
+                    <li>Keep photocopies of important documents</li>
+                    <li>Trust your instincts - if it feels wrong, leave</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">💼</span>Valuables Protection</h3>
+                <ul>
+                    <li>Use hotel safe for passport and cash</li>
+                    <li>Don't flash expensive gadgets in public</li>
+                    <li>Use anti-theft backpack in crowded areas</li>
+                    <li>Keep wallet in front pocket</li>
+                    <li>Split money in different locations</li>
+                    <li>Take photos of important documents</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🚕</span>Transportation Safety</h3>
+                <ul>
+                    <li>Use Grab instead of flagging taxis</li>
+                    <li>Share ride details with someone</li>
+                    <li>Sit behind driver in taxis</li>
+                    <li>Verify plate number before getting in</li>
+                    <li>Agree on fare before tricycle rides</li>
+                    <li>Avoid motorcycle taxis at night</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🏥</span>Health & Medical</h3>
+                <ul>
+                    <li>Drink only bottled or filtered water</li>
+                    <li>Bring anti-diarrhea medicine</li>
+                    <li>Use insect repellent (dengue prevention)</li>
+                    <li>Wash hands frequently or use sanitizer</li>
+                    <li>Avoid street food if sensitive stomach</li>
+                    <li>Know nearest hospital in your area</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🌊</span>Water Activity Safety</h3>
+                <ul>
+                    <li>Always wear life vest during island hopping</li>
+                    <li>Check weather before water activities</li>
+                    <li>Don't swim alone in unfamiliar areas</li>
+                    <li>Follow lifeguard instructions</li>
+                    <li>Be aware of strong currents and riptides</li>
+                    <li>Use reef shoes to avoid sea urchins</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🚨</span>Scam Awareness</h3>
+                <ul>
+                    <li><strong>Taxi meter scam:</strong> Ensure meter is on and not rigged</li>
+                    <li><strong>Overcharging:</strong> Know standard prices beforehand</li>
+                    <li><strong>Fake tour guides:</strong> Book with licensed operators</li>
+                    <li><strong>Sob stories:</strong> Be wary of elaborate hard-luck tales</li>
+                    <li><strong>Distraction theft:</strong> Watch belongings in crowds</li>
+                    <li><strong>ATM skimming:</strong> Use ATMs inside malls/banks</li>
+                    <li><strong>"Barker" scam:</strong> Overpriced tours from touts at ports</li>
+                    <li><strong>Gem/pearl scam:</strong> Fake jewelry in tourist areas</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🌪️</span>Natural Disaster Preparedness</h3>
+                <ul>
+                    <li>Monitor weather during typhoon season (Jun-Nov)</li>
+                    <li>Know evacuation routes in hotels</li>
+                    <li>Download weather apps (PAGASA, Weather PH)</li>
+                    <li>Keep emergency contacts saved</li>
+                    <li>Have backup accommodation plans</li>
+                    <li>Follow local government advisories</li>
+                    <li>Travel insurance that covers natural disasters</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🏊</span>Swimming & Diving Safety</h3>
+                <ul>
+                    <li>Never swim alone or at night</li>
+                    <li>Check current and tide conditions</li>
+                    <li>Stay within designated swimming areas</li>
+                    <li>Use certified dive operators only</li>
+                    <li>Don't dive if you feel unwell</li>
+                    <li>Watch for jellyfish warnings</li>
+                    <li>Avoid alcohol before water activities</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🚗</span>Road Safety</h3>
+                <ul>
+                    <li>Always wear seatbelt (required by law)</li>
+                    <li>Helmet mandatory for motorcycles</li>
+                    <li>Traffic can be chaotic - be alert</li>
+                    <li>Cross at pedestrian lanes</li>
+                    <li>Watch for jeepneys stopping suddenly</li>
+                    <li>Rent from reputable companies only</li>
+                    <li>Check vehicle condition before renting</li>
+                </ul>
+            </div>
+            
+            <div class="tip-box">
+                <strong>💡 Emergency Tip:</strong>
+                <p>Save emergency contacts in your phone under "ICE" (In Case of Emergency). Include embassy number if you're a foreign national.</p>
+            </div>
+        </div>
+        
+        <div id="booking" class="content">
+            <div class="card">
+                <h3><span class="icon">✈️</span>Flight Booking Tips</h3>
+                <ul>
+                    <li><strong>Best time to book:</strong> 2-3 months advance</li>
+                    <li><strong>Cheapest days:</strong> Tuesday to Thursday</li>
+                    <li><strong>Set price alerts:</strong> on Google Flights, Skyscanner</li>
+                    <li><strong>Compare airlines:</strong> Cebu Pacific, Philippine Airlines, AirAsia</li>
+                    <li><strong>Red-eye flights:</strong> Usually cheaper</li>
+                    <li><strong>Promo periods:</strong> Watch for seat sales (Jan, Mar, Sept)</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🏨</span>Accommodation Booking</h3>
+                <ul>
+                    <li><strong>Best platforms:</strong> Booking.com, Agoda, Airbnb</li>
+                    <li><strong>Read reviews:</strong> Focus on recent ones</li>
+                    <li><strong>Check location:</strong> Distance to attractions</li>
+                    <li><strong>Free cancellation:</strong> Book flexible rates</li>
+                    <li><strong>Contact property:</strong> Ask for discounts for long stays</li>
+                    <li><strong>Off-season:</strong> Better rates, less crowded</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🎫</span>Tour & Activity Booking</h3>
+                <ul>
+                    <li>Book tours 1-2 days before for flexibility</li>
+                    <li>Join group tours to save money</li>
+                    <li>Compare prices from different operators</li>
+                    <li>Check what's included (meals, entrance fees)</li>
+                    <li>Read cancellation policy carefully</li>
+                    <li>Book direct with locals at destination for better deals</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🚌</span>Bus & Ferry Booking</h3>
+                <ul>
+                    <li><strong>Major bus lines:</strong> Victory Liner, Ceres, JAM Transit</li>
+                    <li><strong>Online booking:</strong> 12Go Asia, Bookaway, official websites</li>
+                    <li><strong>Ferry companies:</strong> 2GO, Lite Shipping, FastCat</li>
+                    <li>Book in advance during peak season (holidays)</li>
+                    <li>Choose seats near front for less bumpy ride</li>
+                    <li>Arrive 30 minutes early for buses</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">📱</span>Useful Booking Websites</h3>
+                <ul>
+                    <li><strong>Flights:</strong> CebuPacificAir.com, PhilippineAirlines.com</li>
+                    <li><strong>Hotels:</strong> Booking.com, Agoda.com, Hotels.com</li>
+                    <li><strong>Activities:</strong> Klook.com, GetYourGuide.com</li>
+                    <li><strong>Transport:</strong> 12Go.asia, 2GO.com.ph</li>
+                    <li><strong>Reviews:</strong> TripAdvisor, Google Reviews</li>
+                </ul>
+            </div>
+            
+            <div class="tip-box">
+                <strong>💡 Booking Tip:</strong>
+                <p>Always screenshot or save booking confirmations offline. Internet can be spotty in some destinations!</p>
+            </div>
+        </div>
+        
+        <div id="food" class="content">
+            <div class="card">
+                <h3><span class="icon">🍲</span>Must-Try Main Dishes</h3>
+                <ul>
+                    <li><strong>Adobo:</strong> Soy-vinegar braised chicken/pork - national dish</li>
+                    <li><strong>Sinigang:</strong> Tamarind sour soup with vegetables</li>
+                    <li><strong>Kare-kare:</strong> Peanut stew with oxtail and vegetables</li>
+                    <li><strong>Lechon:</strong> Whole roasted pig, crispy skin</li>
+                    <li><strong>Sisig:</strong> Sizzling chopped pork face, spicy</li>
+                    <li><strong>Bicol Express:</strong> Spicy pork in coconut milk</li>
+                    <li><strong>Bulalo:</strong> Beef bone marrow soup, hearty</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🥘</span>Regional Specialties</h3>
+                <ul>
+                    <li><strong>Ilocos:</strong> Bagnet (crispy pork belly), Pinakbet</li>
+                    <li><strong>Pampanga:</strong> Sisig capital, Tocino</li>
+                    <li><strong>Bicol:</strong> Laing (taro leaves in coconut), Pinangat</li>
+                    <li><strong>Cebu:</strong> Lechon (best in PH), Danggit</li>
+                    <li><strong>Davao:</strong> Durian, Pomelo, Tuna dishes</li>
+                    <li><strong>Bacolod:</strong> Chicken Inasal, Piaya</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🍜</span>Street Food to Try</h3>
+                <ul>
+                    <li><strong>Isaw:</strong> Grilled chicken intestines (₱10-15)</li>
+                    <li><strong>Kwek-kwek:</strong> Orange battered quail eggs (₱20)</li>
+                    <li><strong>Fishball:</strong> Deep-fried fish balls (₱20)</li>
+                    <li><strong>Balut:</strong> Fertilized duck egg - challenge! (₱20)</li>
+                    <li><strong>Banana cue:</strong> Fried caramelized banana (₱10)</li>
+                    <li><strong>Taho:</strong> Silken tofu with syrup (₱20)</li>
+                    <li><strong>Turon:</strong> Fried banana spring roll (₱15)</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🍰</span>Desserts & Snacks</h3>
+                <ul>
+                    <li><strong>Halo-halo:</strong> Mixed shaved ice dessert (₱50-150)</li>
+                    <li><strong>Leche flan:</strong> Filipino custard, very sweet</li>
+                    <li><strong>Bibingka:</strong> Rice cake, best during Christmas</li>
+                    <li><strong>Puto:</strong> Steamed rice cakes</li>
+                    <li><strong>Ensaymada:</strong> Buttery brioche with cheese</li>
+                    <li><strong>Ube halaya:</strong> Purple yam jam</li>
+                    <li><strong>Maja blanca:</strong> Coconut pudding</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🥤</span>Drinks & Beverages</h3>
+                <ul>
+                    <li><strong>Buko juice:</strong> Fresh coconut water (₱30-50)</li>
+                    <li><strong>Calamansi juice:</strong> Filipino lime juice (₱30)</li>
+                    <li><strong>Sago't gulaman:</strong> Tapioca and jelly drink (₱20)</li>
+                    <li><strong>San Miguel Beer:</strong> Local beer (₱50-100)</li>
+                    <li><strong>3-in-1 coffee:</strong> Sweet instant coffee everywhere</li>
+                    <li><strong>Lambanog:</strong> Coconut vodka, strong! (₱100+)</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🍽️</span>Where to Eat</h3>
+                <ul>
+                    <li><strong>Carinderia:</strong> Small local eatery (₱50-100)</li>
+                    <li><strong>Turo-turo:</strong> Point & eat style (₱60-120)</li>
+                    <li><strong>Jolly Spaghetti:</strong> Fast food chain (₱100-200)</li>
+                    <li><strong>Max's Restaurant:</strong> Famous fried chicken (₱250-400)</li>
+                    <li><strong>Dampa:</strong> Market-style seafood (₱500-1000)</li>
+                    <li><strong>Night market:</strong> Street food paradise (₱100-300)</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🥗</span>Dietary Tips</h3>
+                <ul>
+                    <li><strong>Vegetarian:</strong> Say "walang karne" (no meat)</li>
+                    <li><strong>Allergies:</strong> "May allergy ako sa..." (I'm allergic to...)</li>
+                    <li><strong>Not spicy:</strong> "Hindi maanghang" (not spicy)</li>
+                    <li><strong>Less sweet:</strong> "Hindi masyadong matamis"</li>
+                    <li>Filipino food tends to be meat-heavy</li>
+                    <li>Inform servers early about restrictions</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🍴</span>Food Safety Tips</h3>
+                <ul>
+                    <li>Choose busy street food stalls (high turnover)</li>
+                    <li>Avoid raw or undercooked food</li>
+                    <li>Peel fruits yourself when possible</li>
+                    <li>Bottled water only, avoid tap water</li>
+                    <li>Ice in restaurants usually safe</li>
+                    <li>Wash hands before eating</li>
+                    <li>Bring Imodium just in case</li>
+                </ul>
+            </div>
+            
+            <div class="tip-box">
+                <strong>💡 Food Tip:</strong>
+                <p>Try "Merienda" culture! Filipinos eat 3 meals + 2 snack times (10 AM & 3 PM). Perfect for trying more dishes!</p>
+            </div>
+        </div>
+        
+        <div id="itinerary" class="content">
+            <div class="card">
+                <h3><span class="icon">🗓️</span>3-Day Boracay Itinerary</h3>
+                <p style="font-weight:600; color:#667eea; margin-bottom:8px;">Day 1: Arrival & Beach Time</p>
+                <ul>
+                    <li>Morning: Arrive, check-in hotel</li>
+                    <li>Afternoon: White Beach Station 1-3 walk</li>
+                    <li>Evening: Sunset at White Beach, dinner at D'Mall</li>
+                </ul>
+                <p style="font-weight:600; color:#667eea; margin:8px 0;">Day 2: Island Activities</p>
+                <ul>
+                    <li>Morning: Island hopping tour (Crystal Cove, Crocodile Island)</li>
+                    <li>Afternoon: Water sports (helmet diving, parasailing)</li>
+                    <li>Evening: Pub crawl or fire dancers show</li>
+                </ul>
+                <p style="font-weight:600; color:#667eea; margin:8px 0;">Day 3: Relaxation & Departure</p>
+                <ul>
+                    <li>Morning: Puka Beach visit</li>
+                    <li>Afternoon: Spa or massage, last beach time</li>
+                    <li>Evening: Departure</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🗓️</span>5-Day Palawan (El Nido) Itinerary</h3>
+                <p style="font-weight:600; color:#667eea; margin-bottom:8px;">Day 1: Arrival</p>
+                <ul>
+                    <li>Arrive Puerto Princesa, van to El Nido (5-6 hours)</li>
+                    <li>Check-in, explore El Nido town</li>
+                </ul>
+                <p style="font-weight:600; color:#667eea; margin:8px 0;">Day 2: Tour A</p>
+                <ul>
+                    <li>Small Lagoon, Big Lagoon, Secret Lagoon</li>
+                    <li>Shimizu Island, 7 Commandos Beach</li>
+                </ul>
+                <p style="font-weight:600; color:#667eea; margin:8px 0;">Day 3: Tour C</p>
+                <ul>
+                    <li>Hidden Beach, Matinloc Shrine</li>
+                    <li>Secret Beach, Star Beach</li>
+                </ul>
+                <p style="font-weight:600; color:#667eea; margin:8px 0;">Day 4: Beach Day</p>
+                <ul>
+                    <li>Nacpan Beach (twin beach)</li>
+                    <li>Relax, sunset watching</li>
+                </ul>
+                <p style="font-weight:600; color:#667eea; margin:8px 0;">Day 5: Departure</p>
+                <ul>
+                    <li>Morning free time, van back to Puerto Princesa</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🗓️</span>4-Day Baguio Itinerary</h3>
+                <p style="font-weight:600; color:#667eea; margin-bottom:8px;">Day 1: Arrival</p>
+                <ul>
+                    <li>Bus from Manila (6 hours)</li>
+                    <li>Session Road walk, night market</li>
+                </ul>
+                <p style="font-weight:600; color:#667eea; margin:8px 0;">Day 2: Tourist Spots</p>
+                <ul>
+                    <li>Burnham Park boat ride</li>
+                    <li>Mines View Park, Botanical Garden</li>
+                    <li>The Mansion, Wright Park horseback</li>
+                </ul>
+                <p style="font-weight:600; color:#667eea; margin:8px 0;">Day 3: Day Trip</p>
+                <ul>
+                    <li>Strawberry farm in La Trinidad</li>
+                    <li>Lion's Head, BenCab Museum</li>
+                    <li>Good Shepherd for pasalubong</li>
+                </ul>
+                <p style="font-weight:600; color:#667eea; margin:8px 0;">Day 4: Cafe Hopping & Departure</p>
+                <ul>
+                    <li>Morning cafe visits</li>
+                    <li>Last minute shopping, bus back to Manila</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">⏱️</span>Planning Your Own Itinerary</h3>
+                <ul>
+                    <li><strong>Research:</strong> Read blogs, watch YouTube vlogs</li>
+                    <li><strong>Map it:</strong> Group nearby attractions together</li>
+                    <li><strong>Buffer time:</strong> Add 30% more time than planned</li>
+                    <li><strong>Flexibility:</strong> Don't overpack schedule</li>
+                    <li><strong>Weather:</strong> Have backup indoor activities</li>
+                    <li><strong>Rest days:</strong> Include 1 free day for 5+ day trips</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">📝</span>Itinerary Pro Tips</h3>
+                <ul>
+                    <li>Book tours the night before for flexibility</li>
+                    <li>Start activities early (6-7 AM) to beat crowds</li>
+                    <li>Group tours cheaper than private</li>
+                    <li>Allow transition time between activities</li>
+                    <li>Download offline maps before trip</li>
+                    <li>Have restaurant list ready (avoid wasting time deciding)</li>
+                </ul>
+            </div>
+            
+            <div class="tip-box">
+                <strong>💡 Planning Tip:</strong>
+                <p>Use Google My Maps to plot all your destinations. Share the map with travel companions for easy coordination!</p>
+            </div>
+        </div>
+        
+        <div id="checklist" class="content">
+            <div class="card">
+                <h3><span class="icon">✅</span>Pre-Travel Checklist</h3>
+            </div>
+            
+            <div class="checklist">
+                <label>
+                    <input type="checkbox">
+                    <span>Valid ID and travel documents</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Hotel/accommodation booked</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Transportation arranged</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Travel insurance purchased</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Emergency contacts saved</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Vaccines up to date (if needed)</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Credit/debit card activated for travel</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Itinerary shared with family/friends</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Apps downloaded (Grab, Maps, etc.)</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Currency exchanged or ATM card ready</span>
+                </label>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🎒</span>Packing Checklist</h3>
+            </div>
+            
+            <div class="checklist">
+                <label>
+                    <input type="checkbox">
+                    <span>Sunscreen (SPF 50+)</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Insect repellent</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Light, breathable clothes</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Swimwear and towel</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Flip-flops/sandals</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Waterproof phone case</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Power bank and chargers</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>First-aid kit & medicines</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Reusable water bottle</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Rain jacket/umbrella</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Dry bag for valuables</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Toiletries (travel-sized)</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Prescription medications</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Sunglasses and hat</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Photocopies of documents</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Ziplock bags (for wet clothes)</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Hand sanitizer</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Tissue/wet wipes</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Flashlight/headlamp</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Snacks for travel</span>
+                </label>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">📸</span>Camera & Electronics</h3>
+            </div>
+            
+            <div class="checklist">
+                <label>
+                    <input type="checkbox">
+                    <span>Camera/GoPro</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Memory cards (extra)</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Charging cables</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Universal adapter</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Waterproof camera case</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Selfie stick/tripod</span>
+                </label>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🏖️</span>Beach-Specific Items</h3>
+            </div>
+            
+            <div class="checklist">
+                <label>
+                    <input type="checkbox">
+                    <span>Rash guard (sun protection)</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Beach bag</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Reef-safe sunscreen</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Snorkel gear (optional)</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Water shoes/reef shoes</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Beach towel</span>
+                </label>
+            </div>
+            
+            <div class="card">
+                <h3><span class="icon">🏔️</span>Mountain/Hiking Items</h3>
+            </div>
+            
+            <div class="checklist">
+                <label>
+                    <input type="checkbox">
+                    <span>Hiking shoes/boots</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Jacket/hoodie (cold weather)</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Long pants</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Trail snacks</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Whistle (for emergencies)</span>
+                </label>
+                <label>
+                    <input type="checkbox">
+                    <span>Trekking poles (optional)</span>
+                </label>
+            </div>
+            
+            <div class="tip-box">
+                <strong>💡 Packing Tip:</strong>
+                <p>Pack light! You can buy most essentials in the Philippines at affordable prices. Plus, you'll have room for pasalubong!</p>
+            </div>
+        </div>
+        
+        <footer>
+            <p>🌴 Happy Travels, Kabayan! 🌴</p>
+            <p style="margin-top:5px; opacity:0.8;">Explore the beauty of the Philippines responsibly</p>
+        </footer>
+    </div>
+    
+    <script>
+        function showTab(tabName) {
+            const contents = document.querySelectorAll('.content');
+            const tabs = document.querySelectorAll('.tab');
+            
+            contents.forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
